@@ -3,8 +3,8 @@ AC_PREREQ(2.52)
 
 dnl the pygtk version number
 m4_define(pygtk_major_version, 2)
-m4_define(pygtk_minor_version, 23)
-m4_define(pygtk_micro_version, 2)
+m4_define(pygtk_minor_version, 24)
+m4_define(pygtk_micro_version, 1)
 m4_define(pygtk_version, pygtk_major_version.pygtk_minor_version.pygtk_micro_version)
 
 dnl versions of packages we require ...
@@ -386,8 +386,12 @@ if test "x$have_pycairo" = "xtrue"; then
   AC_DEFINE([HAVE_GTK_2_24], [$have_gtk_224], [If Gtk 2.24 was found])
 
   dnl libglade
-  PKG_CHECK_MODULES(LIBGLADE, [libglade-2.0 >= libglade_required_version],
-      have_libglade=true, have_libglade=false)
+  have_libglade=false
+  AC_ARG_WITH([glade], AS_HELP_STRING([--without-glade], [Build without glade library (default: test)]))
+  if test "x$with_glade" != "xno"; then
+    PKG_CHECK_MODULES(LIBGLADE, [libglade-2.0 >= libglade_required_version],
+	  have_libglade=true, have_libglade=false)
+  fi
   AC_SUBST(LIBGLADE_CFLAGS)
   AC_SUBST(LIBGLADE_LIBS)
   AM_CONDITIONAL(BUILD_LIBGLADE, $have_libglade)
