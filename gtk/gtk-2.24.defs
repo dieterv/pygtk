@@ -1,3 +1,7 @@
+;; -*- scheme -*-
+
+(include "gtk-2.24-types.defs")
+
 ;; From gtkcombobox.h
 
 (define-function combo_box_new_with_entry
